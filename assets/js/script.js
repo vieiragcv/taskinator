@@ -1,12 +1,16 @@
 
 var buttonEl = document.querySelector("#save-task"); // points button
 var tasksToDoEl = document.querySelector("#tasks-to-do"); //points to ul
+var formEl = document.querySelector("#task-form");
 
-var createTaskHandler = function () {  
-  var listItemEl = document.createElement("li"); // creates an li(html) element
-  listItemEl.className = "task-item"; // associates a class to new li element
-  listItemEl.textContent = "This is a new task."; // adds text to new li element
-  tasksToDoEl.appendChild(listItemEl); //appends the new li as a child  element to a variable previously declared.
-}
+var createTaskHandler = function(event) {
 
+  event.preventDefault();
+
+  var listItemEl = document.createElement("li");
+  listItemEl.className = "task-item";
+  listItemEl.textContent = "This is a new task.";
+  tasksToDoEl.appendChild(listItemEl);
+};
+formEl.addEventListener("submit", createTaskHandler);
 buttonEl.addEventListener("click", createTaskHandler); // as click happens, runs function
