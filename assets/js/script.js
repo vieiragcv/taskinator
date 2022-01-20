@@ -184,6 +184,40 @@ var editTask = function(taskId) {
 var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 }
+
+var loadTasks = function() {
+  var taskOnLocalStorage = localStorage.getItem("tasks");
+  if(taskOnLocalStorage === null) {
+    tasks = [];
+    return false;
+  }
+  tasks = JSON.parse(taskOnLocalStorage);
+  for (i = 0; i < tasks.length; i++) {
+    var listItemEl = document.createElement("li");
+    console.log(listItemEl);
+    listItemEl.className = "task-item";
+    listItemEl.setAttribute("data-task-id", i);
+   
+    var taskInfoEl = document.createElement("div");
+    taskInfoEl.className = "task-info";
+    taskInfoEl.innerHTML = "<h3 class='task-name'>" + tasks.name + "</h3><span class='task-type'>" + tasks.type + "</span>";
+    
+    var taskActionsEl = createTaskActions(i);
+
+    tasksToDoEl.appendChild(listItemEl);
+    listItemEl.appendChild(taskInfoEl);
+    listItemEl.appendChild(taskActionsEl);
+    tasks.id = i;
+    tasks.push(tasks);
+    console.log(tasks);
+    taskIdCounter++;
+    break;
+    }
+
+}
+
 formEl.addEventListener("submit", taskFormHandler);
 pageContentEl.addEventListener('click', taskButtonHandler);
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
+
+loadTasks();
